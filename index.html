@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Verificação Concluída</title>
+    <style>
+        body, html {
+            height: 100%;
+            margin: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+        }
+        #gradient-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            transition: background 0.5s ease;
+        }
+        .container {
+            background-color: rgba(255, 255, 255, 0.9);
+            border-radius: 10px;
+            padding: 40px;
+            text-align: center;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+            z-index: 1;
+            transition: transform 0.3s ease;
+        }
+        .container:hover {
+            transform: translateY(-5px);
+        }
+        h1 {
+            color: #4a4a4a;
+            margin-bottom: 20px;
+        }
+        .btn {
+            background-color: #4CAF50;
+            color: white;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            margin-bottom: 20px;
+        }
+        .btn:hover {
+            background-color: #45a049;
+        }
+        .checkmark {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            display: block;
+            stroke-width: 2;
+            stroke: #4CAF50;
+            stroke-miterlimit: 10;
+            margin: 10% auto;
+            box-shadow: inset 0px 0px 0px #4CAF50;
+            animation: fill .4s ease-in-out .4s forwards, scale .3s ease-in-out .9s both;
+        }
+        .checkmark__circle {
+            stroke-dasharray: 166;
+            stroke-dashoffset: 166;
+            stroke-width: 2;
+            stroke-miterlimit: 10;
+            stroke: #4CAF50;
+            fill: none;
+            animation: stroke 0.6s cubic-bezier(0.65, 0, 0.45, 1) forwards;
+        }
+        .checkmark__check {
+            transform-origin: 50% 50%;
+            stroke-dasharray: 48;
+            stroke-dashoffset: 48;
+            animation: stroke 0.3s cubic-bezier(0.65, 0, 0.45, 1) 0.8s forwards;
+        }
+        @keyframes stroke {
+            100% {
+                stroke-dashoffset: 0;
+            }
+        }
+        @keyframes scale {
+            0%, 100% {
+                transform: none;
+            }
+            50% {
+                transform: scale3d(1.1, 1.1, 1);
+            }
+        }
+     
+        #countdown {
+            font-size: 18px;
+            color: #4a4a4a;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div id="gradient-background"></div>
+    <div class="container">
+        <svg class="checkmark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52">
+            <circle class="checkmark__circle" cx="26" cy="26" r="25" fill="none"/>
+            <path class="checkmark__check" fill="none" d="M14.1 27.2l7.1 7.2 16.7-16.8"/>
+        </svg>
+        <h1>Você foi verificado com sucesso!</h1>
+        <a href="https://discord.com" class="btn">Ir para o Discord agora</a>
+        <div id="countdown">Você será redirecionado em 3 segundos...</div>
+    </div>
+
+    <script>
+        const gradientBackground = document.getElementById('gradient-background');
+        let hue = 0;
+
+        function updateGradient(e) {
+            const rect = gradientBackground.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+            
+            hue = (x / rect.width) * 360;
+            const saturation = 70 + (y / rect.height) * 30;
+            
+            gradientBackground.style.background = `
+                linear-gradient(135deg, 
+                hsl(${hue}, ${saturation}%, 60%) 0%, 
+                hsl(${(hue + 60) % 360}, ${saturation}%, 60%) 100%)
+            `;
+        }
+
+        //document.addEventListener('mousemove', updateGradient);
+
+        // Contador regressivo e redirecionamento
+        let secondsLeft = 3;
+        const countdownElement = document.getElementById('countdown');
+
+        function updateCountdown() {
+            if (secondsLeft > 0) {
+                countdownElement.textContent = `Você será redirecionado em ${secondsLeft} segundo${secondsLeft !== 1 ? 's' : ''}...`;
+                secondsLeft--;
+                setTimeout(updateCountdown, 1000);
+            } else {
+                window.location.href = 'https://discord.gg/76NaZX8hWD';  // Substitua pelo link do servidor do Discord
+            }
+        }
+
+        updateCountdown();
+    </script>
+</body>
+</html>
