@@ -159,24 +159,15 @@
                 bottom: 10px;
             }
 
-            /* Ajustes opcionais para o vídeo em dispositivos móveis */
-            #bg-video {
-                min-width: 100%;
-                min-height: 100%;
-            }
-
-            /* Remover o fundo de imagem de fallback */
-            /*body, html {
-                background: url('sua-imagem-de-fundo.jpg') no-repeat center center fixed;
-                background-size: cover;
-            }*/
+            /* Certifique-se de que o vídeo não está sendo escondido */
+            /* Remova ou comente qualquer código que esconda o #bg-video */
         }
     </style>
 </head>
 <body>
     <!-- Vídeo de Fundo -->
     <video autoplay muted loop playsinline id="bg-video">
-        <source src="https://cdn.discordapp.com/attachments/1290479839945560155/1311066264868749392/videoplayback.mp4" type="video/mp4">
+        <source src="https://cdn.discordapp.com/attachments/1290479839945560155/1311066264868749392/videoplayback.mp4?ex=6747811b&is=67462f9b&hm=af6889d77ecf61d26b8aff4df6ccb80f83eac5471369377887b6838c494056db&" type="video/mp4">
         Seu navegador não suporta o elemento de vídeo.
     </video>
 
@@ -202,7 +193,7 @@
 
         function updateCountdown() {
             if (secondsLeft > 0) {
-                countdownElement.textContent = \`A guia será fechada em \${secondsLeft} segundo\${secondsLeft !== 1 ? 's' : ''}...\`;
+                countdownElement.textContent = `A guia será fechada em ${secondsLeft} segundo${secondsLeft !== 1 ? 's' : ''}...`;
                 secondsLeft--;
                 setTimeout(updateCountdown, 1000);
             } else {
