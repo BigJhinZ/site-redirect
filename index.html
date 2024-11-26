@@ -4,87 +4,113 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Verificação Concluída</title>
+    <link rel="icon" href="https://cdn.discordapp.com/emojis/1300321545415032873" type="image/png">
+    <!-- Importando fonte do Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
     <style>
+        /* Estilos gerais */
         body, html {
             height: 100%;
             margin: 0;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Montserrat', sans-serif;
             display: flex;
+            flex-direction: column;
             justify-content: center;
             align-items: center;
             overflow: hidden;
+            /* Removido o gradiente de fundo para exibir o vídeo */
         }
-        #gradient-background {
+
+        /* Estilos para o vídeo de fundo */
+        #bg-video {
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            transition: background 0.5s ease;
+            top: 50%;
+            left: 50%;
+            min-width: 100%;
+            min-height: 100%;
+            width: auto;
+            height: auto;
+            z-index: -1;
+            transform: translate(-50%, -50%);
+            background-size: cover;
+            overflow: hidden;
         }
+
+        /* Estilos para o container principal */
         .container {
-            background-color: rgba(255, 255, 255, 0.9);
-            border-radius: 10px;
-            padding: 40px;
+            background-color: rgba(255, 255, 255, 0.85);
+            border-radius: 15px;
+            padding: 60px 40px;
             text-align: center;
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
             z-index: 1;
-            transition: transform 0.3s ease;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
         .container:hover {
-            transform: translateY(-5px);
+            transform: translateY(-10px);
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.3);
         }
+
+        /* Estilos para o texto e botões */
         h1 {
-            color: #4a4a4a;
-            margin-bottom: 20px;
+            color: #333;
+            margin-bottom: 30px;
+            font-weight: 600;
         }
         .btn {
-            background-color: #4CAF50;
+            background-color: #667eea;
             color: white;
-            padding: 12px 24px;
+            padding: 14px 28px;
             border: none;
-            border-radius: 5px;
+            border-radius: 50px;
             cursor: pointer;
-            font-size: 16px;
-            transition: background-color 0.3s ease;
+            font-size: 18px;
+            transition: background-color 0.3s ease, box-shadow 0.3s ease;
             text-decoration: none;
             display: inline-block;
-            margin-bottom: 20px;
+            margin-bottom: 30px;
         }
         .btn:hover {
-            background-color: #45a049;
+            background-color: #5a67d8;
+            box-shadow: 0 10px 20px rgba(90, 103, 216, 0.4);
         }
+
+        /* Estilos para a animação do checkmark */
         .checkmark {
-            width: 80px;
-            height: 80px;
+            width: 100px;
+            height: 100px;
             border-radius: 50%;
             display: block;
-            stroke-width: 2;
+            stroke-width: 3;
             stroke: #4CAF50;
             stroke-miterlimit: 10;
-            margin: 10% auto;
+            margin: 0 auto 30px;
             box-shadow: inset 0px 0px 0px #4CAF50;
-            animation: fill .4s ease-in-out .4s forwards, scale .3s ease-in-out .9s both;
+            animation: fill .4s ease-in-out .4s forwards, scale .5s ease-in-out .9s both;
         }
         .checkmark__circle {
             stroke-dasharray: 166;
             stroke-dashoffset: 166;
-            stroke-width: 2;
+            stroke-width: 3;
             stroke-miterlimit: 10;
             stroke: #4CAF50;
             fill: none;
-            animation: stroke 0.6s cubic-bezier(0.65, 0, 0.45, 1) forwards;
+            animation: stroke 1s cubic-bezier(0.65, 0, 0.45, 1) forwards;
         }
         .checkmark__check {
             transform-origin: 50% 50%;
-            stroke-dasharray: 48;
-            stroke-dashoffset: 48;
-            animation: stroke 0.3s cubic-bezier(0.65, 0, 0.45, 1) 0.8s forwards;
+            stroke-dasharray: 50;
+            stroke-dashoffset: 50;
+            animation: stroke 0.5s cubic-bezier(0.65, 0, 0.45, 1) 0.8s forwards;
         }
         @keyframes stroke {
             100% {
                 stroke-dashoffset: 0;
+            }
+        }
+        @keyframes fill {
+            100% {
+                box-shadow: inset 0px 0px 0px 30px #e6ffea;
             }
         }
         @keyframes scale {
@@ -95,58 +121,90 @@
                 transform: scale3d(1.1, 1.1, 1);
             }
         }
-     
+
+        /* Estilos para o contador */
         #countdown {
-            font-size: 18px;
-            color: #4a4a4a;
-            margin-top: 20px;
+            font-size: 20px;
+            color: #555;
+            margin-top: 30px;
+        }
+
+        /* Estilos para o rodapé */
+        footer {
+            position: fixed;
+            bottom: 20px;
+            width: 100%;
+            text-align: center;
+            font-size: 16px;
+            color: #fff;
+            z-index: 1;
+        }
+
+        /* Responsividade */
+        @media (max-width: 768px) {
+            .container {
+                padding: 40px 20px;
+            }
+            .btn {
+                padding: 12px 24px;
+                font-size: 16px;
+            }
+            h1 {
+                font-size: 24px;
+            }
+            #countdown {
+                font-size: 18px;
+            }
+            footer {
+                font-size: 14px;
+                bottom: 10px;
+            }
+            /* Fallback para dispositivos móveis */
+            #bg-video {
+                display: none;
+            }
+            body, html {
+                background: url('sua-imagem-de-fundo.jpg') no-repeat center center fixed;
+                background-size: cover;
+            }
         }
     </style>
 </head>
 <body>
-    <div id="gradient-background"></div>
+    <!-- Vídeo de Fundo -->
+    <video autoplay muted loop id="bg-video">
+        <source src="https://cdn.discordapp.com/attachments/1290479839945560155/1311066264868749392/videoplayback.mp4?ex=6747811b&is=67462f9b&hm=af6889d77ecf61d26b8aff4df6ccb80f83eac5471369377887b6838c494056db&" type="video/mp4">
+        Seu navegador não suporta o elemento de vídeo.
+    </video>
+
+    <!-- Conteúdo Principal -->
     <div class="container">
         <svg class="checkmark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52">
             <circle class="checkmark__circle" cx="26" cy="26" r="25" fill="none"/>
-            <path class="checkmark__check" fill="none" d="M14.1 27.2l7.1 7.2 16.7-16.8"/>
+            <path class="checkmark__check" fill="none" d="M16 26l7 7 13-13"/>
         </svg>
-        <h1>Você foi verificado com sucesso!</h1>
-        <a href="https://discord.com" class="btn">Ir para o Discord agora</a>
-        <div id="countdown">Você será redirecionado em 3 segundos...</div>
+        <h1>Você foi verificado(a) com sucesso!</h1>
+        <div id="countdown">Você será redirecionado em 6 segundos...</div>
     </div>
 
+    <!-- Rodapé -->
+    <footer>
+        Genesis Group
+    </footer>
+
+    <!-- Script para o contador -->
     <script>
-        const gradientBackground = document.getElementById('gradient-background');
-        let hue = 0;
-
-        function updateGradient(e) {
-            const rect = gradientBackground.getBoundingClientRect();
-            const x = e.clientX - rect.left;
-            const y = e.clientY - rect.top;
-            
-            hue = (x / rect.width) * 360;
-            const saturation = 70 + (y / rect.height) * 30;
-            
-            gradientBackground.style.background = `
-                linear-gradient(135deg, 
-                hsl(${hue}, ${saturation}%, 60%) 0%, 
-                hsl(${(hue + 60) % 360}, ${saturation}%, 60%) 100%)
-            `;
-        }
-
-        //document.addEventListener('mousemove', updateGradient);
-
-        // Contador regressivo e redirecionamento
-        let secondsLeft = 3;
+        let secondsLeft = 7;
         const countdownElement = document.getElementById('countdown');
 
         function updateCountdown() {
             if (secondsLeft > 0) {
-                countdownElement.textContent = `Você será redirecionado em ${secondsLeft} segundo${secondsLeft !== 1 ? 's' : ''}...`;
+                countdownElement.textContent = `A guia será fechada em ${secondsLeft} segundo${secondsLeft !== 1 ? 's' : ''}...`;
                 secondsLeft--;
                 setTimeout(updateCountdown, 1000);
             } else {
-                window.location.href = 'https://discord.gg/haridade';  // Substitua pelo link do servidor do Discord
+                // Tenta fechar a janela
+                window.close();
             }
         }
 
